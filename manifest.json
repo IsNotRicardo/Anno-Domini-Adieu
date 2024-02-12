@@ -1,0 +1,21 @@
+{
+  "name": "Anno Domini Adieu",
+  "description": "Convert all dates to the HE calendar",
+  "version": "0.1.0",
+  "manifest_version": 3,
+  "icons": {
+
+  },
+  "action": {
+    "default_popup": "",
+    "default_icon": ""
+  },
+  "content-scripts": [
+    {
+      "js": ["scripts/content.ts"],
+      "matches": [
+        "https://en.wikipedia.org/wiki/*"
+      ]
+    }
+  ]
+}
