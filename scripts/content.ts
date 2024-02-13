@@ -9,23 +9,37 @@ async function language_detection() {
 
 language_detection().then(data => {
     const regex = data.regex
-    const language = data.language
+    const suffix = data.suffix
+    const match_list = text_content.matchAll(regex)
+
+    for (const match of match_list) {
+        const [year, epoch] = match
+        let replacement: string;
+        if (epoch == suffix) { // Change to suffix.includes(epoch)
+            replacement = (10_000 + parseInt(year)).toString()
+        } else {
+            replacement = (10_001 - parseInt(year)).toString()
+        }
+        text_content.replace(regex, replacement)
+    }
+
+    document.body.textContent = text_content
 })
 
 function regex_data(language_tag: string) {
     switch (language_tag) {
         case 'en': {
             return {
-                regex: /(\d+)(?: (?:-|to) (\d+))? ([A-Z]{2})/,
-                language: language_tag
+                regex: /(\d+) ([A-Z]{2, 3})/g,
+                suffix: 'AD' // Include BC/BCE
             }
         }
         // Add more languages here
         default: {
             console.warn("Undetected or unavailable language. Defaulting to English.");
             return {
-                regex: /(\d+)(?: (?:-|to) (\d+))? ([A-Z]{2})/,
-                language: 'en'
+                regex: /(\d+) ([A-Z]{2, 3})/g,
+                suffix: 'AD'
             }
         }
     }
