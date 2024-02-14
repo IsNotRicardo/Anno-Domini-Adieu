@@ -15,15 +15,14 @@ language_detection().then(data => {
     for (const match of match_list) {
         const [year, epoch] = match
         let replacement: string;
-        if (epoch == suffix) { // Change to suffix.includes(epoch)
+        if (epoch === suffix) { // Change to suffix.includes(epoch)
             replacement = (10_000 + parseInt(year)).toString()
         } else {
             replacement = (10_001 - parseInt(year)).toString()
         }
         text_content.replace(regex, replacement)
     }
-
-    document.body.textContent = text_content
+    document.body.textContent = text_content // Broken code, needs node
 })
 
 function regex_data(language_tag: string) {

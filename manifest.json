@@ -6,16 +6,16 @@
   "icons": {
 
   },
-  "action": {
-    "default_popup": "",
-    "default_icon": ""
-  },
-  "content-scripts": [
+  "permissions": [
+    "activeTab",
+    "scripting"
+  ],
+  "content_scripts": [
     {
-      "js": ["scripts/content.ts"],
       "matches": [
         "https://en.wikipedia.org/wiki/*"
-      ]
+      ],
+      "js": ["scripts/content.js"]
     }
   ]
 }
